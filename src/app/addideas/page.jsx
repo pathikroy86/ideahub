@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Form, Input, ListBox, Select, TextArea } from "@heroui/react";
+import toast from "react-hot-toast";
 
 const categories = [
     { id: "startup", label: "Startup" },
@@ -26,6 +27,22 @@ const Field = ({ children, label }) => (
 );
 
 const AddIdeasPage = () => {
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const ideas = Object.fromEntries(formData.entries());
+        const res = await fetch('http://localhost:8008/ideas', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(ideas)
+        })
+        const data = await res.json();
+        if (data) {
+            toast.success("Successfully Submitted!")
+        }
+    }
     return (
         <main className="min-h-[calc(100vh-5rem)] bg-[#f7f8ff] px-4 py-8 sm:px-6 lg:px-8">
             <section className="mx-auto w-full max-w-4xl">
@@ -38,7 +55,7 @@ const AddIdeasPage = () => {
                     </p>
                 </div>
 
-                <Form className="rounded-xl border border-slate-100 bg-white p-5 shadow-[0_18px_55px_rgba(42,53,121,0.08)] sm:p-7">
+                <Form onSubmit={onSubmit} className="rounded-xl border border-slate-100 bg-white p-5 shadow-[0_18px_55px_rgba(42,53,121,0.08)] sm:p-7">
                     <div className="grid w-full gap-5">
                         <Field label="Full Name">
                             <Input
