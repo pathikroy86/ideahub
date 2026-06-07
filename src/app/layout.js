@@ -26,8 +26,9 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col bg-white text-slate-950 dark:bg-slate-950 dark:text-slate-100">
         <Menubar></Menubar>
         {children}
         <Footer></Footer>

@@ -71,8 +71,8 @@ const Banner = () => {
   }, []);
 
   return (
-    <section className="bg-[#f7f8ff] px-4 py-6 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl bg-white shadow-[0_18px_55px_rgba(42,53,121,0.08)] ring-1 ring-slate-100">
+    <section className="bg-[#f7f8ff] dark:bg-slate-950 px-4 py-6 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl overflow-hidden rounded-2xl bg-white dark:bg-slate-950 dark:shadow-none ring-1 ring-slate-100 dark:ring-slate-800/60">
         <div
           className="flex transition-transform duration-700 ease-out"
           style={{ transform: `translateX(-${activeSlide * 100}%)` }}
@@ -87,10 +87,10 @@ const Banner = () => {
                 <p className="mb-3 text-xs font-bold uppercase tracking-normal text-[#4f46e5] sm:text-sm">
                   {slide.eyebrow}
                 </p>
-                <h1 className="text-3xl font-black leading-tight tracking-normal text-slate-950 sm:text-5xl lg:text-6xl">
+                <h1 className="text-3xl font-black leading-tight tracking-normal text-slate-950 dark:text-white sm:text-5xl lg:text-6xl">
                   {splitTitle(slide.title, slide.highlight)}
                 </h1>
-                <p className="mt-4 text-sm leading-7 text-slate-600 sm:text-base sm:leading-8 lg:max-w-lg">
+                <p className="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300 sm:text-base sm:leading-8 lg:max-w-lg">
                   {slide.description}
                 </p>
 
@@ -102,7 +102,7 @@ const Banner = () => {
                     Explore Ideas
                   </Link>
                   <button
-                    className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-transparent px-2 text-sm font-bold text-slate-700 transition hover:text-[#3651d6] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 sm:w-auto"
+                    className="inline-flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-transparent px-2 text-sm font-bold text-slate-700 dark:text-slate-200 transition hover:text-[#3651d6] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 sm:w-auto"
                     type="button"
                   >
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#eef0ff] text-[#4f46e5] shadow-[0_10px_20px_rgba(79,70,229,0.14)]">
@@ -132,11 +132,10 @@ const Banner = () => {
             <button
               aria-label={`Show slide ${index + 1}`}
               aria-pressed={activeSlide === index}
-              className={`h-2 rounded-full transition-all ${
-                activeSlide === index
+              className={`h-2 rounded-full transition-all ${activeSlide === index
                   ? "w-6 bg-[#4f46e5]"
-                  : "w-2 bg-slate-300 hover:bg-slate-400"
-              }`}
+                  : "w-2 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-500"
+                }`}
               key={slide.id}
               onClick={() => setActiveSlide(index)}
               type="button"

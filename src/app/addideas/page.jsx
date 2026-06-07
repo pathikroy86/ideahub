@@ -14,14 +14,14 @@ const categories = [
 ];
 
 const fieldStyles =
-    "h-12 rounded-md border border-slate-200 bg-white px-4 text-sm text-slate-900 shadow-none outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/15";
+    "h-12 rounded-md border border-slate-200 bg-white px-4 text-sm text-slate-900 shadow-none outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:hover:border-slate-600";
 
 const textAreaStyles =
-    "min-h-28 resize-none rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-none outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/15";
+    "min-h-28 resize-none rounded-md border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-none outline-none transition placeholder:text-slate-400 hover:border-slate-300 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/15 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:hover:border-slate-600";
 
 const Field = ({ children, label }) => (
     <div className="space-y-2">
-        <label className="block text-sm font-bold text-slate-950">{label}</label>
+        <label className="block text-sm font-bold text-slate-950 dark:text-slate-100">{label}</label>
         {children}
     </div>
 );
@@ -44,18 +44,18 @@ const AddIdeasPage = () => {
         }
     }
     return (
-        <main className="min-h-[calc(100vh-5rem)] bg-[#f7f8ff] px-4 py-8 sm:px-6 lg:px-8">
+        <main className="min-h-[calc(100vh-5rem)] bg-[#f7f8ff] dark:bg-slate-950 px-4 py-8 sm:px-6 lg:px-8">
             <section className="mx-auto w-full max-w-4xl">
                 <div className="mb-6">
-                    <h1 className="text-3xl font-black tracking-normal text-slate-950 sm:text-4xl">
+                    <h1 className="text-3xl font-black tracking-normal text-slate-950 dark:text-white sm:text-4xl">
                         Add New Idea
                     </h1>
-                    <p className="mt-2 text-sm font-medium text-slate-500 sm:text-base">
+                    <p className="mt-2 text-sm font-medium text-slate-500 dark:text-slate-300 sm:text-base">
                         Share your startup idea with the community.
                     </p>
                 </div>
 
-                <Form onSubmit={onSubmit} className="rounded-xl border border-slate-100 bg-white p-5 shadow-[0_18px_55px_rgba(42,53,121,0.08)] sm:p-7">
+                <Form onSubmit={onSubmit} className="rounded-xl border border-slate-100 bg-white dark:border-slate-700 dark:bg-slate-950 p-5 shadow-[0_18px_55px_rgba(42,53,121,0.08)] dark:shadow-none sm:p-7">
                     <div className="grid w-full gap-5">
                         <Field label="Full Name">
                             <Input
@@ -106,19 +106,19 @@ const AddIdeasPage = () => {
                                     className="w-full"
                                 >
                                     <Select.Trigger className={fieldStyles}>
-                                        <Select.Value className="text-left text-sm text-slate-500">
+                                        <Select.Value className="text-left text-sm text-slate-500 dark:text-slate-300">
                                             {({ selectedText }) => selectedText || "Select category"}
                                         </Select.Value>
-                                        <Select.Indicator className="ml-auto h-4 w-4 text-slate-400" />
+                                        <Select.Indicator className="ml-auto h-4 w-4 text-slate-400 dark:text-slate-500" />
                                     </Select.Trigger>
-                                    <Select.Popover className="rounded-lg border border-slate-100 bg-white p-1 shadow-xl">
+                                    <Select.Popover className="rounded-lg border border-slate-100 bg-white dark:border-slate-700 dark:bg-slate-900 p-1 shadow-xl">
                                         <ListBox>
                                             {categories.map((category) => (
                                                 <ListBox.Item
                                                     key={category.id}
                                                     id={category.id}
                                                     textValue={category.label}
-                                                    className="rounded-md px-3 py-2 text-sm text-slate-700 outline-none hover:bg-[#eef0ff] hover:text-[#3651d6] focus:bg-[#eef0ff] focus:text-[#3651d6]"
+                                                    className="rounded-md px-3 py-2 text-sm text-slate-700 dark:text-slate-200 outline-none hover:bg-[#eef0ff] dark:hover:bg-slate-800 hover:text-[#3651d6] focus:bg-[#eef0ff] dark:focus:bg-slate-800 focus:text-[#3651d6]"
                                                 >
                                                     {category.label}
                                                 </ListBox.Item>
@@ -193,7 +193,7 @@ const AddIdeasPage = () => {
                         <Button
                             type="reset"
                             variant="secondary"
-                            className="h-12 w-full rounded-md border border-slate-200 bg-white text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+                            className="h-12 w-full rounded-md border border-slate-200 bg-white text-sm font-bold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-slate-600 dark:hover:bg-slate-800"
                         >
                             Cancel
                         </Button>

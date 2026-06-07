@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -18,7 +19,7 @@ export default function Menubar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 shadow-[0_10px_30px_rgba(15,23,42,0.04)] backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 shadow-[0_10px_30px_rgba(15,23,42,0.04)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
       <nav className="mx-auto flex min-h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10">
         <Link
           href="/"
@@ -47,7 +48,7 @@ export default function Menubar() {
                 className={`relative py-7 text-sm font-semibold transition-colors duration-200 ${
                   isActive
                     ? "text-[#3651d6]"
-                    : "text-slate-950 hover:text-[#3651d6]"
+                    : "text-slate-950 hover:text-[#3651d6] dark:text-slate-100 dark:hover:text-[#8b9cff]"
                 }`}
               >
                 {item.label}
@@ -60,9 +61,10 @@ export default function Menubar() {
         </div>
 
         <div className="hidden items-center gap-6 lg:flex">
+          <ThemeToggle />
           <Link
             href="/login"
-            className="text-sm font-semibold text-slate-950 transition-colors hover:text-[#3651d6]"
+            className="text-sm font-semibold text-slate-950 transition-colors hover:text-[#3651d6] dark:text-slate-100 dark:hover:text-[#8b9cff]"
           >
             Login
           </Link>
@@ -76,7 +78,7 @@ export default function Menubar() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-950 transition hover:border-[#6f7cf6] hover:text-[#3651d6] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-slate-950 transition hover:border-[#6f7cf6] hover:text-[#3651d6] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 dark:border-slate-700 dark:text-slate-100 lg:hidden"
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((open) => !open)}
@@ -105,7 +107,7 @@ export default function Menubar() {
       </nav>
 
       <div
-        className={`overflow-hidden border-t border-slate-100 bg-white transition-[max-height,opacity] duration-300 lg:hidden ${
+        className={`overflow-hidden border-t border-slate-100 bg-white transition-[max-height,opacity] duration-300 dark:border-slate-800 dark:bg-slate-950 lg:hidden ${
           isOpen ? "max-h-[28rem] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
@@ -120,8 +122,8 @@ export default function Menubar() {
                 onClick={() => setIsOpen(false)}
                 className={`rounded-lg px-3 py-3 text-sm font-semibold transition ${
                   isActive
-                    ? "bg-[#eef0ff] text-[#3651d6]"
-                    : "text-slate-950 hover:bg-slate-50 hover:text-[#3651d6]"
+                    ? "bg-[#eef0ff] text-[#3651d6] dark:bg-slate-800 dark:text-[#8b9cff]"
+                    : "text-slate-950 hover:bg-slate-50 hover:text-[#3651d6] dark:text-slate-100 dark:hover:bg-slate-900 dark:hover:text-[#8b9cff]"
                 }`}
               >
                 {item.label}
@@ -129,11 +131,18 @@ export default function Menubar() {
             );
           })}
 
-          <div className="mt-3 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+          <div className="mt-3 flex items-center justify-between border-t border-slate-100 px-3 pt-4 dark:border-slate-800">
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+              Dark mode
+            </span>
+            <ThemeToggle />
+          </div>
+
+          <div className="mt-3 grid gap-3 border-t border-slate-100 pt-4 dark:border-slate-800 sm:grid-cols-2">
             <Link
               href="/login"
               onClick={() => setIsOpen(false)}
-              className="rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-950 transition hover:border-[#6f7cf6] hover:text-[#3651d6]"
+              className="rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-950 transition hover:border-[#6f7cf6] hover:text-[#3651d6] dark:border-slate-700 dark:text-slate-100 dark:hover:text-[#8b9cff]"
             >
               Login
             </Link>

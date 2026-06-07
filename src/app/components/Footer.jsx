@@ -65,7 +65,7 @@ const socialLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-[#182a44] bg-[#071426] px-4 py-10 text-slate-300 sm:px-6 lg:px-8">
+    <footer className="border-t border-slate-200 bg-white text-slate-950 dark:border-slate-700 dark:bg-[#071426] dark:text-slate-300 px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_3fr_1.5fr]">
           <section className="max-w-xs">
@@ -83,11 +83,11 @@ const Footer = () => {
                   className="absolute left-0 top-1/2 h-9 w-[82px] -translate-y-1/2 object-cover object-left"
                 />
               </span>
-              <span className="text-2xl font-black tracking-normal text-white">
+              <span className="text-2xl font-black tracking-normal text-slate-950 dark:text-white">
                 IdeaVault
               </span>
             </Link>
-            <p className="mt-4 text-sm font-medium leading-7 text-slate-300">
+            <p className="mt-4 text-sm font-medium leading-7 text-slate-600 dark:text-slate-300">
               A platform to share ideas, get feedback, and build the future
               together.
             </p>
@@ -96,7 +96,7 @@ const Footer = () => {
               {socialLinks.map((social) => (
                 <Link
                   aria-label={social.label}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-600/70 text-[#071426] transition hover:bg-[#4f46e5] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 focus:ring-offset-[#071426]"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-950 transition hover:bg-[#4f46e5] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2 focus:ring-offset-transparent dark:bg-slate-700 dark:text-slate-200 dark:focus:ring-offset-[#071426]"
                   href={social.href}
                   key={social.label}
                   target="_blank"
@@ -112,12 +112,12 @@ const Footer = () => {
           <nav className="grid gap-8 sm:grid-cols-3">
             {footerLinks.map((group) => (
               <div key={group.title}>
-                <h2 className="text-base font-bold text-white">{group.title}</h2>
+                <h2 className="text-base font-bold text-slate-950 dark:text-white">{group.title}</h2>
                 <ul className="mt-5 space-y-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       <Link
-                        className="text-sm font-medium text-slate-300 transition hover:text-white"
+                        className="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-white"
                         href={link.href}
                       >
                         {link.label}
@@ -130,17 +130,17 @@ const Footer = () => {
           </nav>
 
           <section>
-            <h2 className="text-base font-bold text-white">
+            <h2 className="text-base font-bold text-slate-950 dark:text-white">
               Subscribe to our newsletter
             </h2>
-            <p className="mt-4 text-sm font-medium leading-7 text-slate-300">
+            <p className="mt-4 text-sm font-medium leading-7 text-slate-500 dark:text-slate-300">
               Get updates on new ideas and features.
             </p>
             <Form className="mt-5 gap-4">
               <Input
                 fullWidth
                 aria-label="Email address"
-                className="h-12 rounded-md border border-slate-300 bg-white px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/25"
+                className="h-12 rounded-md border border-slate-300 bg-white px-4 text-sm text-slate-950 outline-none transition placeholder:text-slate-500 focus:border-[#6f7cf6] focus:ring-2 focus:ring-[#6f7cf6]/25 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500"
                 name="email"
                 placeholder="Enter your email"
                 type="email"
@@ -155,9 +155,9 @@ const Footer = () => {
           </section>
         </div>
 
-        <div className="mt-10 border-t border-slate-700/60 pt-6 text-center">
-          <p className="text-sm font-medium text-slate-300">
-            © 2025 IdeaVault. All rights reserved.
+        <div className="mt-10 border-t border-slate-700/60 dark:border-slate-600/60 pt-6 text-center">
+          <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
+            © 2026 IdeaVault. All rights reserved.
           </p>
         </div>
       </div>
