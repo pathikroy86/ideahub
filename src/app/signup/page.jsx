@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { Check } from "@gravity-ui/icons";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 const GoogleIcon = () => (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
@@ -13,9 +15,20 @@ const GoogleIcon = () => (
 );
 
 const SignupPage = () => {
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+        console.log(user)
+        const { data, error } = await authClient.signUp.email({
+            name: user.name, // required
+            email: user.email, // required
+            password: user.password, // required
+            image: user.imageurl,
+        });
+        if (error) {
+            console.log(error)
+        }
     }
     return (
         <main className="min-h-[calc(100vh-5rem)] bg-[#f7f8ff] dark:bg-slate-950 flex items-center justify-center px-4 py-10">
@@ -45,7 +58,7 @@ const SignupPage = () => {
                 </div>
 
                 <Form className="space-y-5" onSubmit={onSubmit}>
-                    <TextField isRequired name="fullName">
+                    <TextField isRequired name="name">
                         <Label>Full Name</Label>
                         <Input placeholder="John Doe" />
                         <Description>Please enter your full name.</Description>
@@ -120,5 +133,4 @@ const SignupPage = () => {
         </main>
     );
 };
-
 export default SignupPage;
