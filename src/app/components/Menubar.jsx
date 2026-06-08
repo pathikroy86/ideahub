@@ -21,7 +21,7 @@ export default function Menubar() {
     const [isOpen, setIsOpen] = useState(false);
     const { data: session } = authClient.useSession();
     const user = session?.user;
-    console.log(user)
+
     const handleLogout = async () => {
         await authClient.signOut();
     }

@@ -1,11 +1,12 @@
 import { PersonPencil } from "@gravity-ui/icons";
 import Image from "next/image";
+import Link from "next/link";
 
 const formatCategory = (category) =>
     category ? category.charAt(0).toUpperCase() + category.slice(1) : "General";
 
-const IdeaCard = ({ idea }) => {
-    const { title, shortDescription, category, name, imageUrl } = idea;
+const IdeaCard = async ({ idea }) => {
+    const { _id, title, shortDescription, category, name, imageUrl } = idea;
 
     return (
         <article className="group flex h-full flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-900 shadow-md transition hover:-translate-y-0.5 hover:shadow-lg">
@@ -32,7 +33,7 @@ const IdeaCard = ({ idea }) => {
             </div>
 
             <div className="flex flex-1 flex-col space-y-2 p-4">
-                <h4 className="line-clamp-2 text-lg font-semibold text-gray-700 dark:text-slate-100">{title}</h4>
+                <Link href={`/ideas/${_id}`}><h4 className="line-clamp-2 text-lg font-semibold text-gray-700 dark:text-slate-100">{title}</h4></Link>
                 <p className="line-clamp-2 flex-1 text-sm font-medium leading-relaxed text-gray-500 dark:text-slate-400">
                     {shortDescription}
                 </p>
