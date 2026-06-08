@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 import { authClient } from "@/lib/auth-client";
+import { Avatar, Button } from "@heroui/react";
 
 const navItems = [
     { label: "Home", href: "/" },
@@ -18,8 +19,12 @@ const navItems = [
 export default function Menubar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
-    const session = authClient.useSession();
-    console.log(session)
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+    console.log(user)
+    const handleLogout = async () => {
+        await authClient.signOut();
+    }
 
     return (
         <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 shadow-[0_10px_30px_rgba(15,23,42,0.04)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
@@ -64,18 +69,32 @@ export default function Menubar() {
 
                 <div className="hidden items-center gap-6 lg:flex">
                     <ThemeToggle />
-                    <Link
-                        href="/signin"
-                        className="text-sm font-semibold text-slate-950 transition-colors hover:text-[#3651d6] dark:text-slate-100 dark:hover:text-[#8b9cff]"
-                    >
-                        Login
-                    </Link>
-                    <Link
-                        href="/signup"
-                        className="rounded-xl bg-[#4f46e5] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.24)] transition hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2"
-                    >
-                        Register
-                    </Link>
+                    {user ? <div className="flex items-center gap-2">
+                        <Avatar>
+                            <Avatar.Image alt={user.name} src={user.image} />
+                            <Avatar.Fallback>JD</Avatar.Fallback>
+                        </Avatar>
+                        <Link onClick={handleLogout}
+                            href="/signin"
+                            className="rounded-xl bg-[#4f46e5] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.24)] transition hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2"
+                        >
+                            Logout
+                        </Link>
+                    </div> : <div className="flex gap-4 items-center">
+                        <Link
+                            href="/signin"
+                            className="text-sm font-semibold text-slate-950 transition-colors hover:text-[#3651d6] dark:text-slate-100 dark:hover:text-[#8b9cff]"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            href="/signup"
+                            className="rounded-xl bg-[#4f46e5] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.24)] transition hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2"
+                        >
+                            Register
+                        </Link>
+                    </div>}
+
                 </div>
 
                 <button
@@ -136,20 +155,30 @@ export default function Menubar() {
                     </div>
 
                     <div className="mt-3 grid gap-3 border-t border-slate-100 pt-4 dark:border-slate-800 sm:grid-cols-2">
-                        <Link
-                            href="/signin"
-                            onClick={() => setIsOpen(false)}
-                            className="rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-950 transition hover:border-[#6f7cf6] hover:text-[#3651d6] dark:border-slate-700 dark:text-slate-100 dark:hover:text-[#8b9cff]"
-                        >
-                            Login
-                        </Link>
-                        <Link
-                            href="/signup"
-                            onClick={() => setIsOpen(false)}
-                            className="rounded-xl bg-[#4f46e5] px-4 py-3 text-center text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.22)] transition hover:bg-[#4338ca]"
-                        >
-                            Register
-                        </Link>
+                        {user ? <div className="flex items-center gap-2">
+                            <Avatar>
+                                <Avatar.Image alt={user.name} src={user.image} />
+                                <Avatar.Fallback>JD</Avatar.Fallback>
+                            </Avatar>
+                            <Link onClick={handleLogout}
+                                href="/signin"
+                                className="rounded-xl bg-[#4f46e5] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.24)] transition hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2"
+                            >
+                                Logout
+                            </Link>
+                        </div> : <div className="flex flex-col gap-3">
+                            <Link
+                                href="/signin"
+                                className="text-sm font-semibold text-slate-950 transition-colors hover:text-[#3651d6] dark:text-slate-100 dark:hover:text-[#8b9cff] w-full"
+                            ><Button variant="ghost">Login</Button>
+                            </Link>
+                            <Link
+                                href="/signup"
+                                className="rounded-xl bg-[#4f46e5] px-6 py-3 text-sm font-bold text-white shadow-[0_10px_22px_rgba(79,70,229,0.24)] transition hover:bg-[#4338ca] focus:outline-none focus:ring-2 focus:ring-[#6f7cf6] focus:ring-offset-2"
+                            >
+                                Register
+                            </Link>
+                        </div>}
                     </div>
                 </div>
             </div>
