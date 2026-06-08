@@ -19,12 +19,12 @@ const SignupPage = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const user = Object.fromEntries(formData.entries());
-        console.log(user)
         const { data, error } = await authClient.signUp.email({
             name: user.name, // required
             email: user.email, // required
             password: user.password, // required
             image: user.imageurl,
+            callbackURL: '/signin'
         });
         if (error) {
             console.log(error)
@@ -125,7 +125,7 @@ const SignupPage = () => {
 
                 <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
                     Already have an account?{' '}
-                    <Link href="/login" className="font-semibold text-[#4f46e5] hover:text-[#4338ca]">
+                    <Link href="/signin" className="font-semibold text-[#4f46e5] hover:text-[#4338ca]">
                         Login
                     </Link>
                 </p>

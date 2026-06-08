@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import { authClient } from "@/lib/auth-client";
 
 const navItems = [
     { label: "Home", href: "/" },
@@ -17,6 +18,8 @@ const navItems = [
 export default function Menubar() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const session = authClient.useSession();
+    console.log(session)
 
     return (
         <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 shadow-[0_10px_30px_rgba(15,23,42,0.04)] backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">

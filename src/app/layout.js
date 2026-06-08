@@ -29,10 +29,10 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col bg-white text-slate-950 dark:bg-slate-950 dark:text-slate-100">
+        <Toaster />
         <Menubar></Menubar>
         {children}
         <Footer></Footer>
-        <Toaster />
       </body>
     </html>
   );

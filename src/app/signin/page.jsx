@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { ArrowRight } from "@gravity-ui/icons";
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 const GoogleIcon = () => (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
@@ -13,9 +14,18 @@ const GoogleIcon = () => (
 );
 
 const SigninPage = () => {
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+        const { data, error } = await authClient.signIn.email({
+            email: user.email, // required
+            password: user.password, // required
+            callbackURL: '/'
+        })
+        if (error) {
+            console.log(error)
+        }
     }
     return (
         <main className="min-h-[calc(100vh-5rem)] bg-[#f7f8ff] dark:bg-slate-950 flex items-center justify-center px-4 py-10">
