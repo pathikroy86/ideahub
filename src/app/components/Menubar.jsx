@@ -72,7 +72,7 @@ export default function Menubar() {
                     {user ? <div className="flex items-center gap-2">
                         <Avatar>
                             <Avatar.Image alt={user.name} src={user.image} />
-                            <Avatar.Fallback>JD</Avatar.Fallback>
+                            <Avatar.Fallback>{user.name[0]}</Avatar.Fallback>
                         </Avatar>
                         <Link onClick={handleLogout}
                             href="/signin"
