@@ -1,9 +1,13 @@
 import React from 'react';
 import IdeaCard from '../components/IdeaCard';
 import { Label, SearchField } from '@heroui/react';
+import { getAuthHeaders } from '@/lib/server-token';
 
 const IdeasPage = async () => {
-    const res = await fetch('http://localhost:8008/ideas');
+    const res = await fetch('http://localhost:8008/ideas', {
+        headers: await getAuthHeaders(),
+        cache: "no-store",
+    });
     const ideas = await res.json();
     return (
         <div className='container mx-auto mt-5'>

@@ -1,3 +1,5 @@
+import { getAuthHeaders } from "@/lib/server-token";
+
 const categoryIcons = {
     Technology: "⚙️",
     Health: "🩺",
@@ -67,8 +69,11 @@ const buildCategoryCards = (ideas) => {
 };
 
 const ExploreCategories = async () => {
-    const res = await fetch("http://localhost:8008/ideas", { cache: "no-store" });
-    const ideas = await res.json();
+    const res = await fetch("http://localhost:8008/ideas", {
+        headers: await getAuthHeaders(),
+        cache: "no-store",
+    });
+    const ideas = res.ok ? await res.json() : [];
     const categories = buildCategoryCards(Array.isArray(ideas) ? ideas : []);
 
     return (

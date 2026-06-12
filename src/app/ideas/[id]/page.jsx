@@ -1,9 +1,13 @@
 import { Chip } from "@heroui/react";
+import { getAuthHeaders } from "@/lib/server-token";
 import Image from "next/image";
 
 const IdeaDetailsPage = async ({ params }) => {
     const { id } = await params;
-    const res = await fetch(`http://localhost:8008/ideas/${id}`);
+    const res = await fetch(`http://localhost:8008/ideas/${id}`, {
+        headers: await getAuthHeaders(),
+        cache: "no-store",
+    });
     const data = await res.json();
     const tags = data.tags.split(",");
     const { _id, name, imageUrl, category, detailedDescription, estimatedBudget, problemStatement, proposedSolution, shortDescription, targetAudience, title } = data;

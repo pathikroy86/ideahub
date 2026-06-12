@@ -1,6 +1,7 @@
 "use client";
 
 import { Button, Form, Input, ListBox, Select, TextArea } from "@heroui/react";
+import { getClientAuthHeaders } from "@/lib/client-token";
 import toast from "react-hot-toast";
 
 const categories = [
@@ -31,16 +32,26 @@ const AddIdeasPage = () => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const ideas = Object.fromEntries(formData.entries());
+        const authHeaders = await getClientAuthHeaders();
+
+        if (!authHeaders.authorization) {
+            toast.error("Please login before submitting an idea.");
+            return;
+        }
+
         const res = await fetch('http://localhost:8008/ideas', {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                ...authHeaders,
             },
             body: JSON.stringify(ideas)
         })
         const data = await res.json();
-        if (data) {
+        if (res.ok && data) {
             toast.success("Successfully Submitted!")
+        } else {
+            toast.error(data?.message || "Could not submit idea.")
         }
     }
     return (

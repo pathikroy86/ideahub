@@ -1,11 +1,12 @@
 import { PersonPencil } from "@gravity-ui/icons";
 import Image from "next/image";
 import Link from "next/link";
+import IdeaActions from "./IdeaActions";
 
 const formatCategory = (category) =>
     category ? category.charAt(0).toUpperCase() + category.slice(1) : "General";
 
-const IdeaCard = async ({ idea }) => {
+const IdeaCard = async ({ idea, showActions = false }) => {
     const { _id, title, shortDescription, category, name, imageUrl } = idea;
 
     return (
@@ -43,6 +44,8 @@ const IdeaCard = async ({ idea }) => {
                         {name}
                     </p>
                 ) : null}
+
+                {showActions ? <IdeaActions idea={idea} /> : null}
             </div>
         </article>
     );

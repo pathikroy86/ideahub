@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "@gravity-ui/icons";
 import { Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const GoogleIcon = () => (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
@@ -23,8 +24,10 @@ const SigninPage = () => {
             password: user.password, // required
             callbackURL: '/'
         })
-        if (error) {
-            console.log(error)
+        if (!error) {
+            toast.success("Successfully logged in");
+        } else {
+            toast.error("Email and password do not match.");
         }
     }
     const handleGoogleSignIn = async () => {
@@ -101,7 +104,7 @@ const SigninPage = () => {
                 </Form>
 
                 <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-400">
-                    Don't have an account?{' '}
+                    Don&apos;t have an account?{' '}
                     <Link href="/signup" className="font-semibold text-[#4f46e5] hover:text-[#4338ca]">
                         Sign up
                     </Link>

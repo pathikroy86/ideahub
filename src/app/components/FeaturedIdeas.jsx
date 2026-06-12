@@ -1,8 +1,12 @@
 import IdeaCard from "./IdeaCard";
+import { getAuthHeaders } from "@/lib/server-token";
 
 const FeaturedIdeas = async () => {
-    const res = await fetch('http://localhost:8008/ideas');
-    const ideas = await res.json();
+    const res = await fetch('http://localhost:8008/ideas', {
+        headers: await getAuthHeaders(),
+        cache: "no-store",
+    });
+    const ideas = res.ok ? await res.json() : [];
     const featuredIdeas = ideas.slice(0, 4);
     return (
         <div className="container mx-auto mt-5 md:mt-8 px-8 py-5 text-slate-950 dark:text-slate-100">
