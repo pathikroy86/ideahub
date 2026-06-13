@@ -1,17 +1,29 @@
 import { Chip } from "@heroui/react";
 import { getAuthHeaders } from "@/lib/server-token";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
+import Comments from "@/app/components/Comments";
 
 const IdeaDetailsPage = async ({ params }) => {
     const { id } = await params;
+    const authHeaders = await getAuthHeaders();
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
     const res = await fetch(`http://localhost:8008/ideas/${id}`, {
-        headers: await getAuthHeaders(),
+        headers: authHeaders,
         cache: "no-store",
     });
     const data = await res.json();
-    const tags = data.tags.split(",");
+    const commentsRes = await fetch(`http://localhost:8008/ideas/${id}/comments`, {
+        headers: authHeaders,
+        cache: "no-store",
+    });
+    const comments = commentsRes.ok ? await commentsRes.json() : [];
+    const tags = data.tags ? data.tags.split(",") : [];
     const { _id, name, imageUrl, category, detailedDescription, estimatedBudget, problemStatement, proposedSolution, shortDescription, targetAudience, title } = data;
-    console.log(data, tags)
+
     return (
         <div className="md:grid grid-cols-3 container mx-auto gap-5 bg-gray-100 rounded-xl p-3 mb-5">
             <div className="col-span-2 space-y-5">
@@ -23,6 +35,11 @@ const IdeaDetailsPage = async ({ params }) => {
                 />
                 <h3 className="text-2xl font-semibold">Detailed Description</h3>
                 <p className="text-gray-500 font-bold bg-white p-2 rounded-xl">{detailedDescription}</p>
+                <Comments
+                    comments={comments}
+                    currentUserId={session?.user?.id}
+                    ideaId={_id}
+                />
             </div>
             <div className="col-span-1">
                 <div className="bg-white p-3 rounded-xl space-y-3 mb-3">
